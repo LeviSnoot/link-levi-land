@@ -1,35 +1,47 @@
 ---
+import { SEO } from "astro-seo";
 import LeviBackground from "../assets/img/bg.png";
+import LeviIcon from "../assets/img/levi-icon.png";
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "Links may be NSFW. Proceed at your own risk." } =
-  Astro.props;
+const { title, description = "Links to places." } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <SEO
+      title={title}
+      description={description}
+      noindex={true}
+      openGraph={{
+        basic: {
+          title: title,
+          type: "website",
+          image: LeviIcon.src,
+          url: "https://link.levi.land",
+        },
+        optional: {
+          description: description,
+        },
+      }}
+      twitter={{
+        card: "summary_large_image",
+        title: title,
+        description: description,
+      }}
+      extend={{
+        link: [{ rel: "icon", href: "/favicon.ico" }],
+      }}
+    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/favicon.ico" />
     <title>{title}</title>
-
-    <!-- Open Graph / Social Media -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content="/assets/img/levi-icon.png" />
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/assets/img/levi-icon.png" />
   </head>
   <body
     class="min-h-screen bg-cover bg-center bg-fixed"
@@ -41,9 +53,7 @@ const { title, description = "Links may be NSFW. Proceed at your own risk." } =
     ), url(${LeviBackground.src})`,
     }}
   >
-    <div
-      class="min-h-screen backdrop-blur-sm"
-    >
+    <div class="min-h-screen backdrop-blur-sm">
       <slot />
     </div>
   </body>
