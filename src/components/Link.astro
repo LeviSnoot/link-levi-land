@@ -44,8 +44,8 @@ if (icon) {
   } else {
     svgContent = rawSvg
       .replace(/(<svg[^>]*)(?:width|height)="[^"]*"/g, "$1")
-      .replace(/fill="[^"]+"/g, "")
-      .replace("<svg", `<svg fill="${iconColor}"`);
+      .replace(/fill="[^"]+"/g, '')
+      .replace('<svg', `<svg fill="currentColor"`);
   }
 }
 
@@ -87,8 +87,8 @@ const isDark = (color: string) => {
     >
       {svgContent && (
         <div
-          class="w-6 h-6 flex items-center"
-          style={preserveColors ? undefined : `fill: ${iconColor}`}
+          class="w-6 h-6 flex items-center [&>svg]:w-full [&>svg]:h-full"
+          style={preserveColors ? undefined : `color: ${iconColor}`}
         >
           <Fragment set:html={svgContent} />
         </div>
