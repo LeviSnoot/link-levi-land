@@ -1,0 +1,183 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Link from "../components/Link.astro";
+import { Image } from "astro:assets";
+import LeviIcon from "../assets/img/levi-icon.png";
+
+const links = [
+  { type: "heading", title: "Socials" },
+  {
+    href: "https://derg.one/@levi",
+    icon: "/assets/icons/derg-one.svg",
+    title: "Fediverse (@levi@derg.one)",
+    background: "linear-gradient(90deg, rgb(249, 38, 114), rgb(249, 38, 44))",
+    iconColor: "#FAF4ED",
+  },
+  {
+    href: "https://apfollow.mwt.me/?user=levi&instance=derg.one",
+    icon: "/assets/icons/mastodon.svg",
+    title: "Mastodon",
+    background: "#563ACC",
+  },
+  {
+    href: "https://bsky.app/profile/levi.land",
+    icon: "/assets/icons/bluesky.svg",
+    title: "Bluesky",
+    background: "#0085FF",
+  },
+  { type: "heading", title: "Art & Chat" },
+  {
+    href: "https://t.me/LeviGoop",
+    icon: "/assets/icons/telegram.svg",
+    title: "Telegram Channel",
+    background: "#229ED9",
+  },
+  {
+    href: "https://levi.land/discord",
+    icon: "/assets/icons/discord.svg",
+    title: "Discord Server",
+    background: "#5865F2",
+  },
+  {
+    href: "https://furaffinity.net/user/levidragon",
+    icon: "/assets/icons/furaffinity.svg",
+    title: "FurAffinity",
+    background: "#202225",
+    iconColor: "#efb221",
+  },
+  {
+    href: "https://picarto.tv/LEVI",
+    icon: "/assets/icons/picarto.svg",
+    title: "Picarto",
+    background: "#199f66",
+  },
+  {
+    href: "https://itaku.ee/profile/levi",
+    icon: "/assets/icons/itaku.svg",
+    title: "Itaku",
+    background: "#ffeb3b",
+    iconColor: "#303030",
+  },
+  { type: "heading", title: "Content Creation" },
+  {
+    href: "https://twitch.tv/LeviSnoot",
+    icon: "/assets/icons/twitch.svg",
+    title: "Twitch",
+    background: "#9146ff",
+  },
+  {
+    href: "https://youtube.com/@LeviSnoot",
+    icon: "/assets/icons/youtube.svg",
+    title: "YouTube",
+    background: "#FF0000",
+  },
+  {
+    href: "https://github.com/LeviSnoot",
+    icon: "/assets/icons/github.svg",
+    title: "GitHub",
+    background: "#0d1117",
+  },
+  { type: "heading", title: "Other" },
+  {
+    href: "https://levi.land",
+    icon: "/assets/icons/levi-land.svg",
+    title: "Website",
+    background: "#CF0044",
+    iconColor: "#F5E2C7",
+  },
+  {
+    href: "https://trakt.tv/users/levisnoot",
+    icon: "/assets/icons/trakt.svg",
+    title: "Trakt",
+    backgroundGradient: {
+      background:
+        "radial-gradient(farthest-corner at 0% 100%, rgb(245, 6, 19) 0%, rgb(225, 20, 60) 10%, rgb(207, 32, 97) 18%, rgb(192, 43, 129) 27%, rgb(180, 51, 154) 36%, rgb(170, 57, 173) 47%, rgb(164, 62, 187) 58%, rgb(160, 65, 195) 73%, rgb(159, 66, 198) 100%)",
+      backgroundSize: "400% 200%",
+      backgroundPosition: "left bottom",
+    },
+    iconColor: "#FFFFFF",
+  },
+  {
+    href: "https://www.last.fm/user/LeviDragon",
+    icon: "/assets/icons/last-fm.svg",
+    title: "last.fm",
+    background: "#b90000",
+  },
+  {
+    href: "https://listenbrainz.org/user/LeviSnoot/",
+    icon: "/assets/icons/listenbrainz.svg",
+    title: "ListenBrainz",
+    background: "black",
+    preserveColors: true,
+  },
+];
+---
+
+<Layout title="Levi">
+  <div class="min-h-screen flex justify-center">
+    <main class="max-w-3xl py-24 px-8 mx-8 my-32 bg-stone-900/60 backdrop-blur-lg border-solid border-2 border-stone-600/40 rounded-3xl">
+      <div class="text-center mb-8 animate-fade-in-down">
+      <Image
+        src={LeviIcon}
+        alt="An icon of Levi, a dragon. It is drawn in a Hanna-Barbera style."
+        class="w-32 h-32 rounded-full mx-auto mb-4"
+        title="Levi Icon"
+        loading="eager"
+        draggable={false}
+        width={LeviIcon.width}
+        height={LeviIcon.height}
+      />
+      <h1 class="text-4xl font-bold text-white mb-2">Levi</h1>
+      <p class="text-gray-300">
+        🔞 Links may be NSFW. Proceed at your own risk. 🔞
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto px-4 md:px-8">
+      {
+        Object.entries(
+          links.reduce((groups: { [key: string]: typeof links }, link) => {
+            if (link.type === "heading") {
+              groups[link.title] = [];
+            } else {
+              const lastKey = Object.keys(groups).pop();
+              if (lastKey) {
+                groups[lastKey].push(link);
+              }
+            }
+            return groups;
+          }, {})
+        ).map(([heading, groupLinks], groupIndex) => (
+        <div class="flex flex-col items-center">
+            <div
+              style={`animation-delay: ${groupIndex * 0.1}s`}
+              class="opacity-0 animate-fade-in-down w-full flex justify-center"
+            >
+              <div class="w-[18rem]">
+                <Link title={heading} href="" isHeading={true} />
+              </div>
+            </div>
+            <div class="mt-4 w-full flex flex-col items-center">
+              {groupLinks.map((link, index) => (
+                <div
+                  style={`animation-delay: ${(groupIndex * 2 + index) * 0.1}s`}
+                  class="opacity-0 animate-fade-in-down w-full flex justify-center"
+                >
+                  <Link
+                    href={link.href || "#"}
+                    icon={link.icon}
+                    title={link.title}
+                    background={link.background}
+                    backgroundGradient={link.backgroundGradient}
+                    iconColor={link.iconColor}
+                    preserveColors={link.preserveColors}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </main>
+</Layout>

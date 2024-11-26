@@ -1,0 +1,50 @@
+---
+import LeviBackground from "../assets/img/bg.png";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Links may be NSFW. Proceed at your own risk." } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/favicon.ico" />
+    <title>{title}</title>
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/assets/img/levi-icon.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/assets/img/levi-icon.png" />
+  </head>
+  <body
+    class="min-h-screen bg-cover bg-center bg-fixed"
+    style={{
+      backgroundImage: `linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.3),
+      rgba(0, 0, 0, 0.1)
+    ), url(${LeviBackground.src})`,
+    }}
+  >
+    <div
+      class="min-h-screen backdrop-blur-sm"
+    >
+      <slot />
+    </div>
+  </body>
+</html>
