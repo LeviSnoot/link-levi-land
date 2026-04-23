@@ -1,10 +1,12 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
+import aiRobotsTxt from "astro-ai-robots-txt";
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://link.levi.land',
-  integrations: [tailwind()]
+  integrations: [aiRobotsTxt()],
+  vite: {
+    plugins: [tailwindcss()]
+  }
 });
